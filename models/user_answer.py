@@ -8,9 +8,10 @@ class UserAnswer(Base, BaseModel):
 
     __tablename__ = "user_answer"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, attempt_id, answer, question_id, **kwargs):
         """initialize a UserAnswer instance"""
-        super.__init__(*args, **kwargs)
+        kwargs.update(attempt_id=attempt_id, answer=answer, question_id=question_id)
+        super().__init__(**kwargs)
 
     answer = Column(Integer, nullable=False)
 

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, String, Integer, BOOLEAN
+from sqlalchemy import Column, ForeignKey, BOOLEAN, Integer, String
 from sqlalchemy.orm import relationship
 from models.base import BaseModel, Base
 
@@ -8,9 +8,10 @@ class Answer(Base, BaseModel):
 
     __tablename__ = "answer"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, text, order, question_id, correct, **kwargs):
         """initialize a Answer instance"""
-        super.__init__(*args, **kwargs)
+        kwargs.update(text=text, order=order, question_id=question_id, correct=correct)
+        super().__init__(**kwargs)
 
     text = Column(String(100), nullable=False)
     order = Column(Integer, nullable=False)

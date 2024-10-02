@@ -1,0 +1,81 @@
+Modify the quiz details
+---
+path: /api/v1/user/quiz/<int:quiz_id>
+tags:
+- User
+- Group
+- Quiz
+- Ownership
+parameters:
+- in: path
+  name: quiz_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      category:
+        type: string
+      difficulty:
+        type: integer
+      duration:
+        type: integer
+      end:
+        pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+$
+        type: string
+      group_id:
+        type: integer
+      points:
+        type: integer
+      start:
+        pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+$
+        type: string
+      title:
+        type: string
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  409:
+    description: Conflict
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  422:
+    description: Unprocessable Entity
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

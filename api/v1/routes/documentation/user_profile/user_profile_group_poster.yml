@@ -1,0 +1,73 @@
+Subscribe the user to the group
+---
+path: /api/v1/user/profile/group
+tags:
+- User
+- Group
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      group_id:
+        pattern: ^(?!\s*$).+
+        type: integer
+    required:
+    - group_id
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        type: object
+      type: array
+  401:
+    description: Unauthorized
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  409:
+    description: Conflict
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  410:
+    description: Gone
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

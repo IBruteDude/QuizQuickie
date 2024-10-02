@@ -2,14 +2,11 @@
 """RelationalStorage class Module
 """
 from os import getenv
+from collections.abc import Callable
+from typing import Any
 import sqlalchemy as sa
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.orm import scoped_session, sessionmaker, Session
-
-
-# MetaData.tables
-# m = Base.metadata
-classes = {}
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker, Query
 
 
 class RelationalStorage:
@@ -35,24 +32,34 @@ class RelationalStorage:
 
     def new(self, obj):
         """add the object to the current database session"""
-        self._session.add(obj)
+        if obj is not None:
+            self._session.add(obj)
+        return obj
 
     def update(self, obj):
-        self._session.merge(obj)
+        if obj is not None:
+            self._session.merge(obj)
+        return obj
 
     def delete(self, obj):
         """delete from the current database session obj if not None"""
         if obj is not None:
             self._session.delete(obj)
+        return obj
 
     def save(self):
         """commit all changes of the current database session"""
         self._session.commit()
 
+    def cleanup(self):
+        """rollback the changes that happened in the transaction"""
+        self._session.rollback()
+
     def reload(self):
         """reloads data from the database"""
         from models.base import Base
 
+        Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         session_factory = sessionmaker(bind=self._engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
@@ -67,6 +74,8 @@ class RelationalStorage:
         Returns the object based on the class name and its ID, or
         None if not found
         """
+        from models import classes
+
         if cls not in classes.values():
             return None
 
@@ -78,6 +87,8 @@ class RelationalStorage:
 
     def count(self, cls=None):
         """count the number of objects in storage"""
+        from models import classes
+
         count = 0
 
         if not cls:
@@ -88,6 +99,8 @@ class RelationalStorage:
 
     def all(self, cls=None):
         """query on the current database session"""
+        from models import classes
+
         new_dict = {}
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
@@ -104,6 +117,7 @@ class RelationalStorage:
 if __name__ == "__main__":
     db = RelationalStorage()
 
+    from models import classes
     from models.base import Base
     from sqlalchemy import Column, Integer, String
 
@@ -134,3 +148,39 @@ if __name__ == "__main__":
     if not db.count(T) == 3:
         print(db.count(T))
         assert False
+
+
+def paginate(
+    item_name: str,
+    query: Query,
+    page: int = None,
+    page_size: int = None,
+    apply: Callable[[Any], dict] = None,
+):
+    """Helper function to paginate SQLAlchemy queries"""
+    if page is None:
+        page = 1
+    if page_size is None:
+        page_size = getenv("PAGE_SIZE")
+    page = int(page)
+    page_size = int(page_size)
+    if page < 1:
+        raise ValueError("page")
+    if page_size < 1:
+        raise ValueError("page_size")
+
+    total_items = query.count()
+    total_pages = (
+        total_items + page_size - 1
+    ) // page_size  # Round up to get total pages
+    items = query.limit(page_size).offset((page - 1) * page_size).all()
+
+    return {
+        item_name: [apply(item) if apply else item.to_dict() for item in items],
+        "page": page,
+        "next": page + 1 if page < total_pages else page,
+        "prev": page - 1 if page > 1 else page,
+        "page_size": page_size,
+        f"total_{item_name}": total_items,
+        "total_pages": total_pages,
+    }

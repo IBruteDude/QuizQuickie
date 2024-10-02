@@ -1,0 +1,65 @@
+Respond with the quiz's list of questions
+---
+path: /api/v1/quiz/<int:quiz_id>
+tags:
+- Quiz
+- Question
+parameters:
+- in: path
+  name: quiz_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          questions:
+            items:
+              properties:
+                options:
+                  items:
+                    type: string
+                  pattern: ^(?!\s*$).+
+                  type: array
+                points:
+                  pattern: ^(?!\s*$).+
+                  type: integer
+                statement:
+                  pattern: ^(?!\s*$).+
+                  type: string
+                type:
+                  pattern: ^(?!\s*$).+
+                  type: string
+              required:
+              - statement
+              - points
+              - type
+              - options
+              type: object
+            pattern: ^(?!\s*$).+
+            type: array
+        required:
+        - questions
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

@@ -1,0 +1,41 @@
+Create a new session for the user and log in
+---
+path: /api/v1/auth/login
+tags:
+- User
+- UserSession
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      email:
+        pattern: ^(?!\s*$).+
+        type: string
+      password:
+        pattern: ^(?!\s*$).+
+        type: string
+    required:
+    - email
+    - password
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        type: object
+      type: array
+  401:
+    description: Unauthorized
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

@@ -1,0 +1,65 @@
+Get all the group subscribed users
+---
+path: /api/v1/user/group/<int:group_id>/users
+tags:
+- User
+- Group
+- Ownership
+- QuizAttempt
+parameters:
+- in: path
+  name: group_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          attempted_quizzes:
+            items:
+              properties:
+                quiz_id:
+                  pattern: ^(?!\s*$).+
+                  type: integer
+              required:
+              - quiz_id
+              type: object
+            pattern: ^(?!\s*$).+
+            type: array
+          total_score:
+            pattern: ^(?!\s*$).+
+            type: integer
+          user_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          user_name:
+            pattern: ^(?!\s*$).+
+            type: integer
+        required:
+        - user_id
+        - user_name
+        - total_score
+        - attempted_quizzes
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

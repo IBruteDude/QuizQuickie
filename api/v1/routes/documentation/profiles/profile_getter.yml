@@ -1,0 +1,30 @@
+Respond with user profile info
+---
+path: /api/v1/profile
+tags:
+- User
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          user_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          user_name:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - user_id
+        - user_name
+        type: object
+      type: array

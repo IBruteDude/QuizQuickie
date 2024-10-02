@@ -4,46 +4,51 @@
 USER_QUIZ_GETTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "category": {"type": "string"},
-        "sort_by": {"type": "string"},
-        "difficulty": {"type": "integer"},
-        "page": {"type": "integer"},
-        "page_size": {"type": "integer"},
-        "query": {"type": "string"},
+        "category": {"type": ["string", "null"]},
+        "sort_by": {"type": ["string", "null"]},
+        "difficulty": {"type": ["integer", "null"]},
+        "page": {"type": ["integer", "null"]},
+        "page_size": {"type": ["integer", "null"]},
+        "query": {"type": ["string", "null"]},
     },
     "required": [],
 }
 USER_QUIZ_POSTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "title": {"type": "string"},
-        "category": {"type": "string"},
+        "title": {"type": "string", "pattern": "^(?!\\s*$).+"},
+        "category": {"type": "string", "pattern": "^(?!\\s*$).+"},
         "difficulty": {"type": "integer"},
         "points": {"type": "integer"},
-        "duration": {"type": "integer"},
-        "start": {"type": "string", "pattern": ""},
-        "end": {"type": "string", "pattern": ""},
-        "group_id": {"type": "integer"},
+        "duration": {"type": ["integer", "null"]},
+        "start": {"type": ["string", "null"], "format": "date-time"},
+        "end": {"type": ["string", "null"], "format": "date-time"},
+        "group_id": {"type": ["integer", "null"]},
     },
     "required": ["title", "category", "difficulty", "points"],
 }
-USER_QUIZ_PUTTER_SCHEMA = {
+USER_QUIZ_ONE_GETTER_SCHEMA = {"type": "object", "properties": {}, "required": []}
+USER_QUIZ_ONE_PUTTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "title": {"type": "string"},
-        "category": {"type": "string"},
-        "difficulty": {"type": "integer"},
-        "points": {"type": "integer"},
-        "duration": {"type": "integer"},
-        "start": {"type": "string", "pattern": ""},
-        "end": {"type": "string", "pattern": ""},
-        "group_id": {"type": "integer"},
+        "title": {"type": ["string", "null"]},
+        "category": {"type": ["string", "null"]},
+        "difficulty": {"type": ["integer", "null"]},
+        "points": {"type": ["integer", "null"]},
+        "duration": {"type": ["integer", "null"]},
+        "start": {"type": ["string", "null"], "format": "date-time"},
+        "end": {"type": ["string", "null"], "format": "date-time"},
+        "group_id": {"type": ["integer", "null"]},
     },
     "required": [],
 }
-USER_QUIZ_DELETER_SCHEMA = {"type": "object", "properties": {}, "required": []}
-USER_QUIZ_QUESTION_GETTER_SCHEMA = {"type": "object", "properties": {}, "required": []}
-USER_QUIZ_QUESTION_POSTER_SCHEMA = {
+USER_QUIZ_ONE_DELETER_SCHEMA = {"type": "object", "properties": {}, "required": []}
+USER_QUIZ_ONE_QUESTION_GETTER_SCHEMA = {
+    "type": "object",
+    "properties": {},
+    "required": [],
+}
+USER_QUIZ_ONE_QUESTION_POSTER_SCHEMA = {
     "type": "object",
     "properties": {
         "questions": {
@@ -51,9 +56,9 @@ USER_QUIZ_QUESTION_POSTER_SCHEMA = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "statement": {"type": "string"},
+                    "statement": {"type": "string", "pattern": "^(?!\\s*$).+"},
                     "points": {"type": "integer"},
-                    "type": {"type": "string"},
+                    "type": {"type": "string", "pattern": "^(?!\\s*$).+"},
                     "options": {"type": "array", "items": {"type": "string"}},
                     "correct_answer": {"type": "array", "items": {"type": "integer"}},
                 },
@@ -69,7 +74,7 @@ USER_QUIZ_QUESTION_POSTER_SCHEMA = {
     },
     "required": ["questions"],
 }
-USER_QUIZ_QUESTION_PUTTER_SCHEMA = {
+USER_QUIZ_ONE_QUESTION_PUTTER_SCHEMA = {
     "type": "object",
     "properties": {
         "questions": {
@@ -77,48 +82,51 @@ USER_QUIZ_QUESTION_PUTTER_SCHEMA = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "number": {"type": "integer"},
-                    "statement": {"type": "string"},
-                    "points": {"type": "integer"},
-                    "type": {"type": "string"},
-                    "options": {"type": "array", "items": {"type": "string"}},
-                    "correct_answer": {"type": "array", "items": {"type": "integer"}},
+                    "question_id": {"type": "integer"},
+                    "statement": {"type": ["string", "null"]},
+                    "points": {"type": ["integer", "null"]},
+                    "type": {"type": ["string", "null"]},
+                    "options": {"type": ["array", "null"], "items": {"type": "string"}},
+                    "correct_answer": {
+                        "type": ["array", "null"],
+                        "items": {"type": "integer"},
+                    },
                 },
-                "required": ["number"],
+                "required": ["question_id"],
             },
         }
     },
     "required": ["questions"],
 }
-USER_QUIZ_QUESTION_DELETER_SCHEMA = {
+USER_QUIZ_ONE_QUESTION_DELETER_SCHEMA = {
     "type": "object",
     "properties": {
-        "question": {
+        "questions": {
             "type": "array",
             "items": {
                 "type": "object",
-                "properties": {"number": {"type": "integer"}},
-                "required": ["number"],
+                "properties": {"question_id": {"type": "integer"}},
+                "required": ["question_id"],
             },
         }
     },
-    "required": ["question"],
+    "required": ["questions"],
 }
-USER_QUIZ_STATS_ATTEMPTS_GETTER_SCHEMA = {
+USER_QUIZ_ONE_STATS_ATTEMPTS_GETTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "page": {"type": "integer"},
-        "page_size": {"type": "integer"},
-        "query": {"type": "string"},
+        "page": {"type": ["integer", "null"]},
+        "page_size": {"type": ["integer", "null"]},
+        "query": {"type": ["string", "null"]},
     },
     "required": [],
 }
-USER_QUIZ_STATS_QUESTION_GETTER_SCHEMA = {
+USER_QUIZ_ONE_STATS_QUESTION_ONE_GETTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "page": {"type": "integer"},
-        "page_size": {"type": "integer"},
-        "query": {"type": "string"},
+        "page": {"type": ["integer", "null"]},
+        "page_size": {"type": ["integer", "null"]},
+        "query": {"type": ["string", "null"]},
     },
     "required": [],
 }

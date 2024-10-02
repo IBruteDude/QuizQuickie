@@ -1,0 +1,25 @@
+Report the api status
+---
+path: /api/v1/status
+
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          status:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - status
+        type: object
+      type: array

@@ -1,0 +1,174 @@
+# French translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-09-23 17:23+0300\n"
+"PO-Revision-Date: 2024-09-23 17:29+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: app.py:78 routes/auth.py:95 routes/auth.py:149 routes/auth.py:175
+#: routes/groups.py:100
+msgid "unauthorized"
+msgstr "Vous n'êtes pas autorisé."
+
+#: app.py:84
+msgid "forbidden"
+msgstr "Vous êtes interdit d'accéder à cette ressource."
+
+#: app.py:90 routes/groups.py:98 routes/groups.py:148 routes/profiles.py:78
+#: routes/profiles.py:126 routes/quizzes.py:53 routes/quizzes.py:97
+#: routes/quizzes.py:133 routes/user_groups.py:105 routes/user_groups.py:133
+#: routes/user_groups.py:179 routes/user_groups.py:209
+#: routes/user_groups.py:239 routes/user_profile.py:117
+#: routes/user_profile.py:160 routes/user_profile.py:223
+#: routes/user_quizzes.py:61 routes/user_quizzes.py:91
+#: routes/user_quizzes.py:121 routes/user_quizzes.py:153
+#: routes/user_quizzes.py:196 routes/user_quizzes.py:228
+#: routes/user_quizzes.py:263 routes/user_quizzes.py:291
+#: routes/user_quizzes.py:338 routes/user_quizzes.py:383
+msgid "not_found"
+msgstr "Le %(data)s spécifié est introuvable."
+
+#: routes/auth.py:39 routes/user_groups.py:75 routes/user_groups.py:103
+#: routes/user_groups.py:211 routes/user_groups.py:241
+#: routes/user_profile.py:76 routes/user_quizzes.py:93
+#: routes/user_quizzes.py:123
+msgid "duplicate"
+msgstr "Un %(data)s avec les mêmes détails existe déjà."
+
+#: routes/auth.py:39 routes/user_profile.py:76
+msgid "user_name"
+msgstr "nom d'utilisateur"
+
+#: routes/auth.py:41 routes/user_quizzes.py:89
+msgid "incomplete"
+msgstr "Les %(data)s que vous avez fournis sont incomplets."
+
+#: routes/auth.py:41 routes/auth.py:43 routes/auth.py:69
+msgid "login details"
+msgstr "détails de connexion"
+
+#: routes/auth.py:43 routes/auth.py:69 routes/auth.py:123 routes/groups.py:52
+#: routes/groups.py:102 routes/groups.py:150 routes/profiles.py:41
+#: routes/profiles.py:128 routes/quizzes.py:55 routes/user_groups.py:49
+#: routes/user_groups.py:181 routes/user_profile.py:74
+#: routes/user_profile.py:123 routes/user_profile.py:197
+#: routes/user_quizzes.py:63 routes/user_quizzes.py:95
+#: routes/user_quizzes.py:125 routes/user_quizzes.py:226
+#: routes/user_quizzes.py:261 routes/user_quizzes.py:340
+#: routes/user_quizzes.py:385 schemas/__init__.py:12 schemas/__init__.py:16
+#: schemas/__init__.py:17
+msgid "invalid"
+msgstr "Les %(data)s que vous avez saisis sont invalides."
+
+#: routes/auth.py:45 routes/auth.py:71 routes/auth.py:97 routes/auth.py:125
+#: routes/auth.py:151 routes/auth.py:177 routes/groups.py:54
+#: routes/groups.py:104 routes/groups.py:152 routes/profiles.py:43
+#: routes/profiles.py:80 routes/profiles.py:130 routes/quizzes.py:57
+#: routes/quizzes.py:99 routes/quizzes.py:135 routes/user_groups.py:51
+#: routes/user_groups.py:77 routes/user_groups.py:107 routes/user_groups.py:135
+#: routes/user_groups.py:183 routes/user_groups.py:213
+#: routes/user_groups.py:243 routes/user_profile.py:50
+#: routes/user_profile.py:78 routes/user_profile.py:125
+#: routes/user_profile.py:162 routes/user_profile.py:199
+#: routes/user_profile.py:229 routes/user_quizzes.py:65
+#: routes/user_quizzes.py:97 routes/user_quizzes.py:127
+#: routes/user_quizzes.py:155 routes/user_quizzes.py:198
+#: routes/user_quizzes.py:230 routes/user_quizzes.py:265
+#: routes/user_quizzes.py:293 routes/user_quizzes.py:342
+#: routes/user_quizzes.py:387
+msgid "unexpected"
+msgstr "Une erreur inattendue s'est produite."
+
+#: routes/auth.py:123
+msgid "token or password"
+msgstr "jeton ou mot de passe"
+
+#: routes/groups.py:52 routes/groups.py:102 routes/groups.py:150
+#: routes/profiles.py:41 routes/profiles.py:128 routes/quizzes.py:55
+#: routes/user_groups.py:49 routes/user_groups.py:181
+#: routes/user_profile.py:123 routes/user_profile.py:197
+#: routes/user_quizzes.py:63 routes/user_quizzes.py:340
+#: routes/user_quizzes.py:385
+msgid "page_size"
+msgstr "taille de page"
+
+#: routes/groups.py:98 routes/groups.py:148 routes/user_groups.py:105
+#: routes/user_groups.py:133 routes/user_groups.py:179
+#: routes/user_groups.py:209 routes/user_groups.py:239
+#: routes/user_profile.py:223 routes/user_profile.py:227
+#: routes/user_quizzes.py:91
+msgid "group"
+msgstr "groupe"
+
+#: routes/profiles.py:78 routes/user_groups.py:211 routes/user_groups.py:241
+msgid "user"
+msgstr "utilisateur"
+
+#: routes/profiles.py:126 routes/quizzes.py:53 routes/user_quizzes.py:61
+msgid "category"
+msgstr "catégorie"
+
+#: routes/quizzes.py:95 routes/user_profile.py:119 routes/user_profile.py:227
+msgid "deleted"
+msgstr "Le %(data)s a été supprimé."
+
+#: routes/quizzes.py:95 routes/quizzes.py:97 routes/quizzes.py:133
+#: routes/user_profile.py:117 routes/user_profile.py:119
+#: routes/user_profile.py:160 routes/user_quizzes.py:89
+#: routes/user_quizzes.py:121 routes/user_quizzes.py:153
+#: routes/user_quizzes.py:196 routes/user_quizzes.py:228
+#: routes/user_quizzes.py:263 routes/user_quizzes.py:291
+#: routes/user_quizzes.py:338 routes/user_quizzes.py:383
+msgid "quiz"
+msgstr "quiz"
+
+#: routes/user_groups.py:75 routes/user_groups.py:103 routes/user_quizzes.py:93
+#: routes/user_quizzes.py:123
+msgid "title"
+msgstr "titre"
+
+#: routes/user_profile.py:74
+msgid "profile"
+msgstr "profil"
+
+#: routes/user_profile.py:121
+msgid "quiz time has ended"
+msgstr "Le temps du quiz est écoulé."
+
+#: routes/user_profile.py:225
+msgid "already subscribed to group"
+msgstr "Vous êtes déjà abonné à ce groupe."
+
+#: routes/user_quizzes.py:95 routes/user_quizzes.py:125
+msgid "quiz schedule"
+msgstr "horaire du quiz"
+
+#: routes/user_quizzes.py:224 schemas/__init__.py:14
+msgid "missing"
+msgstr "Il manque des %(data)s."
+
+#: routes/user_quizzes.py:224
+msgid "answers"
+msgstr "réponses"
+
+#: routes/user_quizzes.py:226 routes/user_quizzes.py:261
+msgid "answer option"
+msgstr "option de réponse"
+
+#: routes/user_quizzes.py:256
+msgid "question"
+msgstr "question"
+

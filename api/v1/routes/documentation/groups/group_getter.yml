@@ -1,0 +1,40 @@
+Respond with a list of available user groups
+---
+path: /api/v1/group
+tags:
+- User
+- Group
+- Ownership
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          group_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          owner_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          owner_name:
+            pattern: ^(?!\s*$).+
+            type: string
+          title:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - group_id
+        - title
+        - owner_id
+        - owner_name
+        type: object
+      type: array

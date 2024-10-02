@@ -9,7 +9,8 @@ from api.v1.routes import app_routes
 def status() -> str:
     """GET /api/v1/status
     Return:
-      - the status of the API
+      - on success: the status of the API
+      - on error:
     """
     return jsonify({"status": "OK"})
 
@@ -18,11 +19,18 @@ def status() -> str:
 def stats() -> str:
     """GET /api/v1/stats
     Return:
-      - the number of each objects
+      - on success: the number of each objects
+      - on error:
     """
-    from project_setup_script.models.engine.relational_storage import classes
+    from models import classes, storage, User
+    from flask import g
+    from flask_babel import _
+
+    user = getattr(g, "user", None)
+    if user is None:
+        return jsonify(_("unauthorized"))
 
     stats = {}
     for clsname, cls in classes.items():
-        stats[clsname] = cls.count()
+        stats[clsname] = storage.query(cls).count()
     return jsonify(stats)

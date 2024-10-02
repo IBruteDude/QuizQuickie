@@ -1,0 +1,62 @@
+Respond with user profile info
+---
+path: /api/v1/profile/<int:user_id>
+tags:
+- User
+- Ownership
+- Group
+- Quiz
+- QuizAttempt
+parameters:
+- in: path
+  name: user_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          created_quizzes:
+            pattern: ^(?!\s*$).+
+            type: integer
+          owned_groups:
+            pattern: ^(?!\s*$).+
+            type: integer
+          solved_quizzes:
+            pattern: ^(?!\s*$).+
+            type: integer
+          subscribed_groups:
+            pattern: ^(?!\s*$).+
+            type: integer
+          user_name:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - user_name
+        - owned_groups
+        - created_quizzes
+        - subscribed_groups
+        - solved_quizzes
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

@@ -1,0 +1,62 @@
+Remove users from group
+---
+path: /api/v1/user/group/<int:group_id>/users
+tags:
+- User
+- Group
+- Ownership
+parameters:
+- in: path
+  name: group_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      users:
+        items:
+          properties:
+            user_id:
+              pattern: ^(?!\s*$).+
+              type: integer
+          required:
+          - user_id
+          type: object
+        pattern: ^(?!\s*$).+
+        type: array
+    required:
+    - users
+    type: object
+responses:
+  204:
+    description: No Content
+    schema:
+      items:
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  409:
+    description: Conflict
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

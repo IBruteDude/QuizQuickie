@@ -4,33 +4,34 @@
 USER_GROUP_GETTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "page": {"type": "integer"},
-        "page_size": {"type": "integer"},
-        "query": {"type": "string"},
+        "page": {"type": ["integer", "null"]},
+        "page_size": {"type": ["integer", "null"]},
+        "query": {"type": ["string", "null"]},
     },
     "required": [],
 }
 USER_GROUP_POSTER_SCHEMA = {
     "type": "object",
-    "properties": {"title": {"type": "string"}},
+    "properties": {"title": {"type": "string", "pattern": "^(?!\\s*$).+"}},
     "required": ["title"],
 }
-USER_GROUP_PUTTER_SCHEMA = {
+USER_GROUP_ONE_GETTER_SCHEMA = {"type": "object", "properties": {}, "required": []}
+USER_GROUP_ONE_PUTTER_SCHEMA = {
     "type": "object",
-    "properties": {"title": {"type": "string"}},
+    "properties": {"title": {"type": "string", "pattern": "^(?!\\s*$).+"}},
     "required": ["title"],
 }
-USER_GROUP_DELETER_SCHEMA = {"type": "object", "properties": {}, "required": []}
-USER_GROUP_USERS_GETTER_SCHEMA = {
+USER_GROUP_ONE_DELETER_SCHEMA = {"type": "object", "properties": {}, "required": []}
+USER_GROUP_ONE_USERS_GETTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "page": {"type": "integer"},
-        "page_size": {"type": "integer"},
-        "query": {"type": "string"},
+        "page": {"type": ["integer", "null"]},
+        "page_size": {"type": ["integer", "null"]},
+        "query": {"type": ["string", "null"]},
     },
     "required": [],
 }
-USER_GROUP_USERS_POSTER_SCHEMA = {
+USER_GROUP_ONE_USERS_POSTER_SCHEMA = {
     "type": "object",
     "properties": {
         "users": {
@@ -44,7 +45,7 @@ USER_GROUP_USERS_POSTER_SCHEMA = {
     },
     "required": ["users"],
 }
-USER_GROUP_USERS_DELETER_SCHEMA = {
+USER_GROUP_ONE_USERS_DELETER_SCHEMA = {
     "type": "object",
     "properties": {
         "users": {

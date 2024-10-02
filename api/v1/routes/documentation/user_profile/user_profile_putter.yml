@@ -1,0 +1,65 @@
+Change user profile details
+---
+path: /api/v1/user/profile
+tags:
+- User
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      first_name:
+        type: string
+      last_name:
+        type: string
+      profile_picture:
+        pattern: ^(https?|ftp|file)://([A-Za-z0-9.-]+)(:[0-9]+)?(/[^?#]*)?(\?[^#]*)?(#.*)?$
+        type: string
+      user_name:
+        type: string
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        type: object
+      type: array
+  400:
+    description: Bad Request
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  401:
+    description: Unauthorized
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  409:
+    description: Conflict
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

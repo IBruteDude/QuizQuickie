@@ -1,0 +1,81 @@
+Respond with quiz details
+---
+path: /api/v1/user/quiz/<int:quiz_id>
+tags:
+- User
+- Quiz
+parameters:
+- in: path
+  name: quiz_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          category:
+            pattern: ^(?!\s*$).+
+            type: string
+          difficulty:
+            type: integer
+          duration:
+            type: integer
+          end:
+            format: date-time
+            pattern: ^(?!\s*$).+
+            type: string
+          group_id:
+            type: integer
+          points:
+            type: integer
+          start:
+            format: date-time
+            pattern: ^(?!\s*$).+
+            type: string
+          title:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - title
+        - category
+        - difficulty
+        - points
+        - duration
+        - start
+        - end
+        - group_id
+        type: object
+      type: array
+  401:
+    description: Unauthorized
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

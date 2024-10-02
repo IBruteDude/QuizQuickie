@@ -1,7 +1,6 @@
-from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy import Column, ForeignKey, Integer, Boolean
 from sqlalchemy.orm import relationship
 from models.base import BaseModel, Base
-from models.user_quiz_attempt import user_quiz_attempt
 
 
 class QuizAttempt(Base, BaseModel):
@@ -9,16 +8,19 @@ class QuizAttempt(Base, BaseModel):
 
     __tablename__ = "quiz_attempt"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, score, quiz_id, user_id, **kwargs):
         """initialize a QuizAttempt instance"""
-        super.__init__(*args, **kwargs)
+        kwargs.update(score=score, quiz_id=quiz_id, user_id=user_id)
+        super().__init__(**kwargs)
 
     score = Column(Integer, nullable=False)
+    full_score = Column(Boolean, nullable=False)
 
     quiz_id = Column(Integer, ForeignKey("quiz.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
 
-    users = None
     quiz = None
+    user = None
     user_answers = relationship(
         "UserAnswer", back_populates="quiz_attempt", cascade="all, delete-orphan"
     )

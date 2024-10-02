@@ -1,0 +1,76 @@
+Respond with a list of the groups subscribed users
+---
+path: /api/v1/group/<int:group_id>/users
+tags:
+- User
+- Group
+- QuizAttempt
+parameters:
+- in: path
+  name: group_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      max_score:
+        type: integer
+      min_score:
+        type: integer
+      sort_by:
+        type: string
+      status:
+        type: string
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          score:
+            pattern: ^(?!\s*$).+
+            type: integer
+          status:
+            pattern: ^(?!\s*$).+
+            type: string
+          user_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          user_name:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - user_id
+        - user_name
+        - status
+        - score
+        type: object
+      type: array
+  403:
+    description: Forbidden
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

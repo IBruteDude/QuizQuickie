@@ -1,0 +1,95 @@
+Create a new quiz for user
+---
+path: /api/v1/user/quiz
+tags:
+- User
+- Quiz
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      category:
+        pattern: ^(?!\s*$).+
+        type: string
+      difficulty:
+        pattern: ^(?!\s*$).+
+        type: integer
+      duration:
+        type: integer
+      end:
+        pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+$
+        type: string
+      group_id:
+        type: integer
+      points:
+        pattern: ^(?!\s*$).+
+        type: integer
+      start:
+        pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+$
+        type: string
+      title:
+        pattern: ^(?!\s*$).+
+        type: string
+    required:
+    - title
+    - category
+    - difficulty
+    - points
+    type: object
+responses:
+  201:
+    description: Created
+    schema:
+      items:
+        type: object
+      type: array
+  400:
+    description: Bad Request
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  409:
+    description: Conflict
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  422:
+    description: Unprocessable Entity
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

@@ -5,26 +5,23 @@ USER_PROFILE_GETTER_SCHEMA = {"type": "object", "properties": {}, "required": []
 USER_PROFILE_PUTTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "first_name": {"type": "string"},
-        "last_name": {"type": "string"},
-        "user_name": {"type": "string"},
-        "profile_picture": {
-            "type": "string",
-            "pattern": "^(https?|ftp|file)://([-a-zA-Z0-9@:%._+~#=]{2,256})(:[0-9]+)?(/[-a-zA-Z0-9@:%._+~#=]*)*$",
-        },
+        "first_name": {"type": ["string", "null"]},
+        "last_name": {"type": ["string", "null"]},
+        "user_name": {"type": ["string", "null"]},
+        "profile_picture": {"type": ["string", "null"], "format": "uri"},
     },
     "required": [],
 }
-USER_PROFILE_QUIZ_GETTER_SCHEMA = {
+USER_PROFILE_QUIZ_ONE_ATTEMPTS_GETTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "page": {"type": "integer"},
-        "page_size": {"type": "integer"},
-        "query": {"type": "string"},
+        "page": {"type": ["integer", "null"]},
+        "page_size": {"type": ["integer", "null"]},
+        "query": {"type": ["string", "null"]},
     },
     "required": [],
 }
-USER_PROFILE_QUIZ_POSTER_SCHEMA = {
+USER_PROFILE_QUIZ_ONE_ATTEMPTS_POSTER_SCHEMA = {
     "type": "object",
     "properties": {
         "answers": {
@@ -43,9 +40,9 @@ USER_PROFILE_QUIZ_POSTER_SCHEMA = {
 USER_PROFILE_GROUP_GETTER_SCHEMA = {
     "type": "object",
     "properties": {
-        "page": {"type": "integer"},
-        "page_size": {"type": "integer"},
-        "query": {"type": "string"},
+        "page": {"type": ["integer", "null"]},
+        "page_size": {"type": ["integer", "null"]},
+        "query": {"type": ["string", "null"]},
     },
     "required": [],
 }
@@ -53,4 +50,9 @@ USER_PROFILE_GROUP_POSTER_SCHEMA = {
     "type": "object",
     "properties": {"group_id": {"type": "integer"}},
     "required": ["group_id"],
+}
+USER_PROFILE_GROUP_ONE_DELETER_SCHEMA = {
+    "type": "object",
+    "properties": {},
+    "required": [],
 }

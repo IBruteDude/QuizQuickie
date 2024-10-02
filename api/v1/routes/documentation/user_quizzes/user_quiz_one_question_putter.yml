@@ -1,0 +1,76 @@
+Modify the quiz's questions
+---
+path: /api/v1/user/quiz/<int:quiz_id>/question
+tags:
+- User
+- Question
+- Quiz
+parameters:
+- in: path
+  name: quiz_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      questions:
+        items:
+          properties:
+            correct_answer:
+              items:
+                type: integer
+              type: array
+            number:
+              pattern: ^(?!\s*$).+
+              type: integer
+            options:
+              items:
+                type: string
+              type: array
+            points:
+              type: integer
+            statement:
+              type: string
+            type:
+              type: string
+          required:
+          - number
+          type: object
+        pattern: ^(?!\s*$).+
+        type: array
+    required:
+    - questions
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  422:
+    description: Unprocessable Entity
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

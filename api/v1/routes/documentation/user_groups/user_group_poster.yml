@@ -1,0 +1,38 @@
+Create a user group
+---
+path: /api/v1/user/group
+tags:
+- User
+- Group
+- Ownership
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      title:
+        pattern: ^(?!\s*$).+
+        type: string
+    required:
+    - title
+    type: object
+responses:
+  201:
+    description: Created
+    schema:
+      items:
+        type: object
+      type: array
+  409:
+    description: Conflict
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

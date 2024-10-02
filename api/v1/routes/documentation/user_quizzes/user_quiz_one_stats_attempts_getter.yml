@@ -1,0 +1,60 @@
+Respond with stats about the user attempts of the quiz
+---
+path: /api/v1/user/quiz/<int:quiz_id>/stats/attempts
+tags:
+- User
+- QuizAttempt
+- Quiz
+parameters:
+- in: path
+  name: quiz_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          attempt_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          points:
+            pattern: ^(?!\s*$).+
+            type: integer
+          time:
+            pattern: ^(?!\s*$).+
+            type: string
+          user_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          user_name:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - user_id
+        - user_name
+        - attempt_id
+        - time
+        - points
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

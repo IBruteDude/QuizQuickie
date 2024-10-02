@@ -1,0 +1,50 @@
+Remove questions from the quiz
+---
+path: /api/v1/user/quiz/<int:quiz_id>/question
+tags:
+- User
+- Question
+- Quiz
+parameters:
+- in: path
+  name: quiz_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      questions:
+        items:
+          properties:
+            number:
+              pattern: ^(?!\s*$).+
+              type: integer
+          required:
+          - number
+          type: object
+        pattern: ^(?!\s*$).+
+        type: array
+    required:
+    - questions
+    type: object
+responses:
+  204:
+    description: No Content
+    schema:
+      items:
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

@@ -15,9 +15,9 @@ class SessionAuth(Auth):
 
     def create_session(self, user_id: str = None) -> str:
         """Create a session id associated with a user id"""
-        if user_id is None or type(user_id) is not str:
+        if user_id is None:
             return None
-        session_id = str(uuid.uuid4())
+        session_id = uuid.uuid4()
 
         storage.new(
             UserSession(
@@ -26,13 +26,15 @@ class SessionAuth(Auth):
                 user_id=user_id,
             )
         )
-        return session_id
+        storage.save()
+        return str(session_id)
 
     def current_user(self, request) -> User:
         """Get the current user"""
         session_cookie = self.session_cookie(request)
         if session_cookie is None:
             return None
+        session_cookie = uuid.UUID(f"{{{session_cookie}}}")
         session = (
             storage.query(UserSession)
             .where(UserSession.uuid == session_cookie)
@@ -58,8 +60,11 @@ class SessionAuth(Auth):
         if session_cookie is None:
             return False
 
+        session_cookie = uuid.UUID(f"{{{session_cookie}}}")
         user_session = (
-            storage.query(UserSession).filter_by(uuid=session_cookie).one_or_none()
+            storage.query(UserSession)
+            .where(UserSession.uuid == session_cookie)
+            .one_or_none()
         )
         if user_session is None:
             return False

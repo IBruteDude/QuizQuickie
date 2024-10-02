@@ -1,0 +1,37 @@
+Report statistics about api uptime and workload
+---
+path: /api/v1/stats
+
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          online_users:
+            pattern: ^(?!\s*$).+
+            type: integer
+        required:
+        - online_users
+        type: object
+      type: array
+  401:
+    description: Unauthorized
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

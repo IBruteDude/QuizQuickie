@@ -1,0 +1,63 @@
+Respond with all the schedualed quizzes
+---
+path: /api/v1/group/<int:group_id>/quizzes
+tags:
+- User
+- Group
+- Ownership
+- Quiz
+parameters:
+- in: path
+  name: group_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      category:
+        type: string
+      difficulty:
+        type: integer
+      sort_by:
+        type: string
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          end:
+            pattern: ^(?!\s*$).+
+            type: string
+          quiz_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          start:
+            pattern: ^(?!\s*$).+
+            type: string
+          title:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - quiz_id
+        - title
+        - start
+        - end
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

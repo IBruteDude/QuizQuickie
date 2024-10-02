@@ -1,0 +1,33 @@
+Delete user account
+---
+path: /api/v1/auth/deactivate
+tags:
+- User
+- UserSession
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  204:
+    description: No Content
+    schema:
+      items:
+        type: object
+      type: array
+  401:
+    description: Unauthorized
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

@@ -1,0 +1,44 @@
+Respond with all the user's own groups
+---
+path: /api/v1/user/group
+tags:
+- User
+- Group
+- Ownership
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties: {}
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          group_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          title:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - group_id
+        - title
+        type: object
+      type: array
+  401:
+    description: Unauthorized
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

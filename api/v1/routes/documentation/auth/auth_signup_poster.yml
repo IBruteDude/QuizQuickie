@@ -1,0 +1,80 @@
+Create a new user account
+---
+path: /api/v1/auth/signup
+tags:
+- User
+- UserSession
+parameters:
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      email:
+        pattern: ^(?!\s*$).+
+        type: string
+      first_name:
+        pattern: ^(?!\s*$).+
+        type: string
+      last_name:
+        pattern: ^(?!\s*$).+
+        type: string
+      password:
+        pattern: ^(?!\s*$).+
+        type: string
+      profile_picture:
+        pattern: ^(https?|ftp|file)://([A-Za-z0-9.-]+)(:[0-9]+)?(/[^?#]*)?(\?[^#]*)?(#.*)?$
+        type: string
+      user_name:
+        pattern: ^(?!\s*$).+
+        type: string
+    required:
+    - email
+    - password
+    - first_name
+    - last_name
+    - user_name
+    type: object
+responses:
+  201:
+    description: Created
+    schema:
+      items:
+        type: object
+      type: array
+  400:
+    description: Bad Request
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  409:
+    description: Conflict
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  422:
+    description: Unprocessable Entity
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

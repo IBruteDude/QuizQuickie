@@ -1,0 +1,81 @@
+Respond with the user's created quizzes
+---
+path: /api/v1/profile/<int:user_id>/quiz
+tags:
+- User
+- Quiz
+parameters:
+- in: path
+  name: user_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      category:
+        type: string
+      difficulty:
+        type: integer
+      sort_by:
+        type: string
+    required: []
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          category:
+            pattern: ^(?!\s*$).+
+            type: string
+          difficulty:
+            pattern: ^(?!\s*$).+
+            type: integer
+          duration:
+            pattern: ^(?!\s*$).+
+            type: integer
+          points:
+            pattern: ^(?!\s*$).+
+            type: integer
+          quiz_id:
+            pattern: ^(?!\s*$).+
+            type: integer
+          title:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - quiz_id
+        - title
+        - category
+        - difficulty
+        - points
+        - duration
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  422:
+    description: Unprocessable Entity
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array

@@ -1,0 +1,91 @@
+Submit user answers for the quiz's questions
+---
+path: /api/v1/user/profile/quiz/<int:quiz_id>
+tags:
+- User
+- Quiz
+parameters:
+- in: path
+  name: quiz_id
+  required: true
+  type: string
+- in: query
+  name: body
+  required: true
+  schema:
+    properties:
+      answers:
+        items:
+          properties:
+            options:
+              items:
+                type: integer
+              pattern: ^(?!\s*$).+
+              type: array
+          required:
+          - options
+          type: object
+        pattern: ^(?!\s*$).+
+        type: array
+    required:
+    - answers
+    type: object
+responses:
+  200:
+    description: OK
+    schema:
+      items:
+        properties:
+          correct_answers:
+            items:
+              properties:
+                answers:
+                  items:
+                    properties:
+                      options:
+                        items:
+                          type: integer
+                        pattern: ^(?!\s*$).+
+                        type: array
+                    required:
+                    - options
+                    type: object
+                  pattern: ^(?!\s*$).+
+                  type: array
+              required:
+              - answers
+              type: object
+            pattern: ^(?!\s*$).+
+            type: array
+          total_score:
+            pattern: ^(?!\s*$).+
+            type: integer
+        required:
+        - total_score
+        - correct_answers
+        type: object
+      type: array
+  401:
+    description: Unauthorized
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
+  404:
+    description: Not Found
+    schema:
+      items:
+        properties:
+          error:
+            pattern: ^(?!\s*$).+
+            type: string
+        required:
+        - error
+        type: object
+      type: array
